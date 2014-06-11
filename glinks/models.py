@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+
 
 # Create your models here.
 class Blueprint(models.Model):
@@ -18,7 +20,7 @@ class Glink(models.Model):
 	blueprint = models.ForeignKey(Blueprint, null=True)
 
 	# Glink image
-	image  = models.ImageField(null=False, blank=False, upload_to="/glink/")
+	image  = models.ImageField(null=False, blank=False, upload_to="glink_images")
 
 	# Glink target URL
 	URL    = models.URLField(null=True, blank=True)
