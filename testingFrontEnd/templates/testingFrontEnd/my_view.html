@@ -1,3 +1,4 @@
 {% load glink %}
-
-<img src="{% glink with blueprint='header' as g %}">
+{% glink with blueprint='header' as g %}
+	<img id="glink" src="{{g.image.url}}" onclick="location.href='/glink/{{g.pk}}'">
+{% endglink %}
