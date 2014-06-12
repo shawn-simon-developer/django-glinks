@@ -105,14 +105,16 @@ class GlinkNode(Node):
 			print str(e)
 
 	def render(self, context):
+		#height="42" width="42"
 		glink_page = "'glink/" + str(self.glink.pk) + "'"
 		img_lead = "<img src="
 		img_url = "'" + str(self.glink.image.url) + "'"
 		on_click = " onclick=location.href="
 		glink_page = "'/glink/" + str(self.glink.pk) + "'"
+		height = " height='" + str(self.blueprint.height) + "'"
+		width = " width='" + str(self.blueprint.width) + "'"
 		img_close = ">"
- 		print img_lead + img_url + on_click + glink_page + img_close
-		return img_lead + img_url + on_click + glink_page + img_close
+		return img_lead + img_url + on_click + glink_page + height + width + img_close
 
 
 @register.assignment_tag
