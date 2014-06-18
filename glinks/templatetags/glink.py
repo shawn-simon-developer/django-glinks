@@ -112,6 +112,7 @@ class GlinkNode(Node):
 
 	def render(self, context):
 		#height="42" width="42"
+		'''
 		glink_page = "'glink/" + str(self.glink.id) + "'"
 		img_lead = "<img src="
 		img_url = "'" + str(self.glink.image.url) + "'"
@@ -121,6 +122,18 @@ class GlinkNode(Node):
 		width = " width='" + str(self.blueprint.width) + "'"
 		img_close = ">"
 		return img_lead + img_url + on_click + glink_page + height + width + img_close
+		'''
+		a_lead = "<a href="
+		glink_page = "'/glink/" + str(self.glink.id) + "'>"
+		img_lead = "<img src="
+		img_url = "'" + str(self.glink.image.url) + "'"
+		height = " height='" + str(self.blueprint.height) + "'"
+		width = " width='" + str(self.blueprint.width) + "'"
+		img_close = "> "
+		a_close = "</a>"
+		print a_lead + glink_page + img_lead + img_url + height + width + img_close + a_close
+		return a_lead + glink_page + img_lead + img_url + height + width + img_close + a_close
+
 
 
 @register.assignment_tag
