@@ -30,6 +30,21 @@ INSTALLED_APPS = (
 )
 ```
 
+Next, we need to add a url to allow django to redirect to our glink link. In your urls.py file you must add the glink url.
+
+```python
+from glinks.views import glink_counter
+
+urlpatterns = patterns('',
+    # Examples:
+    # url(r'^$', 'myManager.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
+    ...
+
+    url(r'^glink/([0-9]+)/$', glink_counter, name="glink_counter")
+)
+```
+
 From there you can head into your admin pannel and add some glinks with blueprints of your choice. On this github I have included some with some horrible images that don't even match the resolution of the blueprint. To include a glink in your template you simple load glinks and then place a glink with the blueprint you desire.
 
 ```python
