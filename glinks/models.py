@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-
 # Create your models here.
 class Blueprint(models.Model):
 
@@ -24,6 +23,8 @@ class Glink(models.Model):
 
 	# Glink target URL
 	URL    = models.URLField(null=True, blank=True)
+
+	weight = models.PositiveIntegerField(max_length=9, default=0)
 
 	# Click/impression tracking
 	clicks = models.BigIntegerField(null=False, blank=True, default=0)
