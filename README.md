@@ -1,6 +1,6 @@
 # About Django-Glinks
 
-Django-Glinks is a simple internal ad manager for django sites. A glink is a "Graphical Link" which when slammed together in pure greative bliss you get glink!
+Django-Glinks is a simple internal ad manager for django sites. A glink is a "Graphical Link" which when slammed together in pure creative bliss you get glink!
 
 What glink provides is a way to host your own ads on your site as a simple image so that ad-blocker will not block your add.This image, when clicked, will lead to the link of your choice while also counting the impressions and the clicks interally by redirecting back to your site backend then to the link for the ad. These properties are READ ONLY and should stay that way for integrity of your impression and click counts. Don't be sketchy...
 
