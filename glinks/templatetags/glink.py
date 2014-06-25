@@ -55,24 +55,30 @@ class GlinkNodeCustom(Node):
 
 		try:
 			glinks = Glink.objects.filter(blueprint=self.blueprint)
-			self.glink = glinks.order_by('?')[0]
+			if len(glinks) > 0:
+				self.glink = glinks.order_by('?')[0]
 
-			# Increment impression count.
-			self.glink.impressions = self.glink.impressions + 1
-			self.glink.save()
+				# Increment impression count.
+				self.glink.impressions = self.glink.impressions + 1
+				self.glink.save()
+			else:
+				self.glink = None
 		except Exception as e:
 			print str(e)
 
 	def render(self, context):
-		output = None
+		output = ""
 
-		if self.as_var:
-			context.push()
-			context[self.as_var] = self.glink
-			output = self.nodelist_file.render(context)
-			context.pop()
+		if self.glink != None
+			if self.as_var:
+				context.push()
+				context[self.as_var] = self.glink
+				output = self.nodelist_file.render(context)
+				context.pop()
+			else:
+				output = self.glink.image.url
 		else:
-			output = self.glink.image.url
+			output = ""
 
 		return output
 
@@ -98,15 +104,22 @@ class GlinkNode(Node):
 
 		try:
 			glinks = Glink.objects.filter(blueprint=self.blueprint)
-			weight_list = generateWeightedListFromGlinks(glinks)
 
-			weight = weight_list[randint(0, len(weight_list)-1)]
-			glinks = glinks.filter(weight=weight)
-			self.glink = glinks.order_by('?')[0]
+			print len(glinks)
+			if (len(glinks) > 0):
+				weight_list = generateWeightedListFromGlinks(glinks)
 
-			# Increment impression count.
-			self.glink.impressions = self.glink.impressions + 1
-			self.glink.save()
+				weight = weight_list[randint(0, len(weight_list)-1)]
+				glinks = glinks.filter(weight=weight)
+				self.glink = glinks.order_by('?')[0]
+
+				# Increment impression count.
+				self.glink.impressions = self.glink.impressions + 1
+				self.glink.save()
+			else:
+				self.glink = None
+
+			
 		except Exception as e:
 			print str(e)
 
@@ -123,16 +136,19 @@ class GlinkNode(Node):
 		img_close = ">"
 		return img_lead + img_url + on_click + glink_page + height + width + img_close
 		'''
-		a_lead = "<a href="
-		glink_page = "'/glink/" + str(self.glink.id) + "'>"
-		img_lead = "<img src="
-		img_url = "'" + str(self.glink.image.url) + "'"
-		height = " height='" + str(self.blueprint.height) + "'"
-		width = " width='" + str(self.blueprint.width) + "'"
-		img_close = "> "
-		a_close = "</a>"
-		print a_lead + glink_page + img_lead + img_url + height + width + img_close + a_close
-		return a_lead + glink_page + img_lead + img_url + height + width + img_close + a_close
+		if self.glink != None:
+			a_lead = "<a href="
+			glink_page = "'/glink/" + str(self.glink.id) + "'>"
+			img_lead = "<img src="
+			img_url = "'" + str(self.glink.image.url) + "'"
+			height = " height='" + str(self.blueprint.height) + "'"
+			width = " width='" + str(self.blueprint.width) + "'"
+			img_close = "> "
+			a_close = "</a>"
+			return a_lead + glink_page + img_lead + img_url + height + width + img_close + a_close
+		else: 
+			return ""
+
 
 
 
