@@ -18,6 +18,9 @@ class Glink(models.Model):
 
 	blueprint = models.ForeignKey(Blueprint, null=True)
 
+	# Name (Issue #2 requested.)
+	name = models.CharField(null=False, blank=False, max_length=200)
+
 	# Glink image
 	image  = models.ImageField(null=False, blank=False, upload_to="glink_images")
 

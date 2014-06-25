@@ -49,11 +49,10 @@ class GlinkNodeCustom(Node):
 			if parser.next_token().contents == 'empty':
 				self.nodelist_empty = parser.parse(('endcustom_glink',))
 				parser.delete_first_token()
-		
-		# Nifty little switcharoo from string to object.
-		self.blueprint = Blueprint.objects.get(name=self.blueprint)
 
 		try:
+			# Nifty little switcharoo from string to object.
+			self.blueprint = Blueprint.objects.get(name=self.blueprint)
 			glinks = Glink.objects.filter(blueprint=self.blueprint)
 			if len(glinks) > 0:
 				self.glink = glinks.order_by('?')[0]
@@ -65,11 +64,12 @@ class GlinkNodeCustom(Node):
 				self.glink = None
 		except Exception as e:
 			print str(e)
+			self.glink = None
 
 	def render(self, context):
 		output = ""
 
-		if self.glink != None
+		if self.glink != None:
 			if self.as_var:
 				context.push()
 				context[self.as_var] = self.glink
@@ -99,14 +99,13 @@ class GlinkNode(Node):
 		for key, value in self.options.items():
 			if key == "blueprint":
 				self.blueprint = value
-		# Nifty little switcharoo from string to object.
-		self.blueprint = Blueprint.objects.get(name=self.blueprint)
 
 		try:
+			# Nifty little switcharoo from string to object.
+			self.blueprint = Blueprint.objects.get(name=self.blueprint)
 			glinks = Glink.objects.filter(blueprint=self.blueprint)
 
-			print len(glinks)
-			if (len(glinks) > 0):
+			if len(glinks) > 0:
 				weight_list = generateWeightedListFromGlinks(glinks)
 
 				weight = weight_list[randint(0, len(weight_list)-1)]
@@ -118,10 +117,10 @@ class GlinkNode(Node):
 				self.glink.save()
 			else:
 				self.glink = None
-
-			
+	
 		except Exception as e:
 			print str(e)
+			self.glink = None
 
 	def render(self, context):
 		#height="42" width="42"
