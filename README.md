@@ -45,6 +45,15 @@ urlpatterns = patterns('',
 )
 ```
 
+In order to gave our impression and click location tracking we need to add these context prossesors.
+
+```python
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+    )
+```
+
 From there you can head into your admin pannel and add some glinks with blueprints of your choice. On this github I have included some with some horrible images that don't even match the resolution of the blueprint. To include a glink in your template you simple load glinks and then place a glink with the blueprint you desire.
 
 ```python
