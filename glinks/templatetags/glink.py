@@ -10,8 +10,6 @@ register = template.Library()
 
 from random import randint
 
-import urllib
-
 def parseGlinkNode(command):
 	options = {}
 
@@ -125,7 +123,7 @@ class GlinkNode(Node):
 			self.glink = None
 
 	def render(self, context):
-		user_ip = get_client_ip(context['request'])
+		user_ip = getClientIpFromRequest(context['request'])
 		tracking_dict = getLocationFromIp(user_ip)
 
 		#height="42" width="42"
@@ -141,8 +139,9 @@ class GlinkNode(Node):
 		return img_lead + img_url + on_click + glink_page + height + width + img_close
 		'''
 		if self.glink != None:
-			impressionTracking = ImpressionTracking(glink_id=self.glink, latitude=tracking_dict["Latitude"], longitude=tracking_dict["Longitude"],
-				country=tracking_dict["Country"], city=tracking_dict["City"])
+			impressionTracking = ImpressionTracking(glink_id=self.glink, latitude=tracking_dict["Latitude"], 
+				longitude=tracking_dict["Longitude"], country=tracking_dict["Country"], 
+				city=tracking_dict["City"])
 			impressionTracking.save()
 
 			a_lead = "<a href="
@@ -174,25 +173,6 @@ def custom_glink(parser, token):
 def glink(parser, token):
 	node = GlinkNode(parser, token)
 	return node
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-
-def getLocationFromIp(ip):
-	address = 'http://api.hostip.info/get_html.php?ip=' + ip + '&position=true'
-	location_data = urllib.urlopen(address).read()
-	data_list = [s.strip() for s in location_data.splitlines()]
-	data_list.remove('')
-	tracking_dict = {}
-	for data in data_list:
-		info_list = data.split(':')
-		tracking_dict[info_list[0]] = info_list[1]
-	return tracking_dict
 
 
 
