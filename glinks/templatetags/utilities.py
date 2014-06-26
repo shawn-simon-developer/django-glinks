@@ -34,5 +34,5 @@ def getLocationFromIp(ip):
 	tracking_dict = {}
 	for data in data_list:
 		info_list = data.split(':')
-		tracking_dict[info_list[0]] = info_list[1]
+		tracking_dict[info_list[0].strip()] = info_list[1].strip()
 	return tracking_dict

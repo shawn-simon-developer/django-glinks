@@ -125,6 +125,7 @@ class GlinkNode(Node):
 	def render(self, context):
 		user_ip = getClientIpFromRequest(context['request'])
 		tracking_dict = getLocationFromIp(user_ip)
+		print tracking_dict
 
 		#height="42" width="42"
 		'''
@@ -139,9 +140,9 @@ class GlinkNode(Node):
 		return img_lead + img_url + on_click + glink_page + height + width + img_close
 		'''
 		if self.glink != None:
-			impressionTracking = ImpressionTracking(glink_id=self.glink, latitude=tracking_dict["Latitude"], 
-				longitude=tracking_dict["Longitude"], country=tracking_dict["Country"], 
-				city=tracking_dict["City"])
+			impressionTracking = ImpressionTracking(glink_id=self.glink, latitude=tracking_dict["Latitude"].strip(), 
+				longitude=tracking_dict["Longitude"].strip(), country=tracking_dict["Country"].strip(), 
+				city=tracking_dict["City"].strip())
 			impressionTracking.save()
 
 			a_lead = "<a href="

@@ -36,6 +36,33 @@ class Glink(models.Model):
 	def __unicode__(self):
 		return self.name
 
+	def mostClicksLocation(self):
+		clickTracking = ClickTracking.objects.filter(glink_id=self)
+		tracking_dict = {}
+
+		for tracking in clickTracking:
+			key = tracking.city + ", " + tracking.country
+			tracking_dict[key] = 0
+
+		for key in tracking_dict.keys():
+			keys = key.split(",")
+			print keys[1]
+			tracking_at_locations = ClickTracking.objects.filter(city=keys[0], country=keys[1].strip())
+			tracking_dict[key] = len(tracking_at_locations)
+
+		sorted_tracking_dict = sorted(tracking_dict.items(), key=lambda x:x[1])
+
+		top = ""
+		if len(sorted_tracking_dict) >= 1:
+			top = top + str(sorted_tracking_dict[-1][0]) + " clicked this ad " + str(sorted_tracking_dict[-1][1]) + " times."
+
+		return top
+
+	mostClicksLocation.short_description = "Most Clicks Location"
+	mostClicksLocation.editable = False
+
+
+
 class ImpressionTracking(models.Model):
 
 	glink_id = models.ForeignKey(Glink, verbose_name="Parent Glink")
