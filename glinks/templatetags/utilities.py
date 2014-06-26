@@ -1,4 +1,4 @@
-from glinks.models import Glink, Blueprint
+from glinks.models import Glink, Blueprint, ImpressionTracking, ClickTracking
 
 def possibleGlinkOptions():
 	options = ["blueprint", "as"]

@@ -32,3 +32,38 @@ class Glink(models.Model):
 	# Click/impression tracking
 	clicks = models.BigIntegerField(null=False, blank=True, default=0)
 	impressions = models.BigIntegerField(null=False, blank=True, default=0)
+
+	def __unicode__(self):
+		return self.name
+
+class ImpressionTracking(models.Model):
+
+	glink_id = models.ForeignKey(Glink, verbose_name="Parent Glink")
+
+	latitude = models.CharField(null=False, blank=True, max_length=20)
+
+	longitude = models.CharField(null=False, blank=True, max_length=20)
+
+	country = models.CharField(null=False, blank=True, max_length=200)
+
+	city = models.CharField(null=False, blank=True, max_length=200)
+
+	def __unicode__(self):
+		return "User from: " + str(self.country) + ", " + str(self.city)
+
+class ClickTracking(models.Model):
+
+	glink_id = models.ForeignKey(Glink, verbose_name="Parent Glink")
+
+	latitude = models.CharField(null=False, blank=True, max_length=20)
+
+	longitude = models.CharField(null=False, blank=True, max_length=20)
+
+	country = models.CharField(null=False, blank=True, max_length=200)
+
+	city = models.CharField(null=False, blank=True, max_length=200)
+
+	def __unicode__(self):
+		return "User from: " + str(self.country) + ", " + str(self.city)
+
+
