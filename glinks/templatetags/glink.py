@@ -139,7 +139,7 @@ class GlinkNode(Node):
 		return img_lead + img_url + on_click + glink_page + height + width + img_close
 		'''
 		if self.glink != None:
-			impressionTracking = ImpressionTracking(glink_id=self.glink, latitude=tracking_dict["Latitude"].strip(), 
+			impressionTracking = ImpressionTracking(glink_id=self.glink, ip=user_ip, latitude=tracking_dict["Latitude"].strip(), 
 				longitude=tracking_dict["Longitude"].strip(), country=tracking_dict["Country"].strip(), 
 				city=tracking_dict["City"].strip())
 			impressionTracking.save()

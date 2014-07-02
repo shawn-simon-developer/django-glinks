@@ -11,7 +11,7 @@ def glink_counter(request, glink_id):
 	ip = getClientIpFromRequest(request)
 	tracking_dict = getLocationFromIp(ip)
 
-	clickTracking = ClickTracking(glink_id=glink, latitude=tracking_dict["Latitude"], 
+	clickTracking = ClickTracking(glink_id=glink, ip=ip latitude=tracking_dict["Latitude"], 
 				longitude=tracking_dict["Longitude"], country=tracking_dict["Country"], 
 				city=tracking_dict["City"])
 	clickTracking.save()

@@ -90,6 +90,8 @@ class ImpressionTracking(models.Model):
 
 	glink_id = models.ForeignKey(Glink, verbose_name="Parent Glink")
 
+	ip = models.CharField(null=False, blank=True, max_length=100)
+
 	latitude = models.CharField(null=False, blank=True, max_length=20)
 
 	longitude = models.CharField(null=False, blank=True, max_length=20)
@@ -104,6 +106,8 @@ class ImpressionTracking(models.Model):
 class ClickTracking(models.Model):
 
 	glink_id = models.ForeignKey(Glink, verbose_name="Parent Glink")
+
+	ip = models.CharField(null=False, blank=True, max_length=100)
 
 	latitude = models.CharField(null=False, blank=True, max_length=20)
 
