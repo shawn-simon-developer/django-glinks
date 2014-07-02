@@ -125,7 +125,6 @@ class GlinkNode(Node):
 	def render(self, context):
 		user_ip = getClientIpFromRequest(context['request'])
 		tracking_dict = getLocationFromIp(user_ip)
-		print tracking_dict
 
 		#height="42" width="42"
 		'''
