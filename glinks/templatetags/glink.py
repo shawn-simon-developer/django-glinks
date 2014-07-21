@@ -155,14 +155,14 @@ class GlinkNode(Node):
 				city=tracking_dict["City"].strip())
 			impressionTracking.save()
 
-			a_lead = "<a href="
-			glink_page = "'/glink/" + str(self.glink.id) + "'>"
-			img_lead = "<img src="
-			img_url = "'" + str(self.glink.image.url) + "'"
-			height = " height='" + str(self.blueprint.height) + "'"
-			width = " width='" + str(self.blueprint.width) + "'"
-			img_close = "> "
-			a_close = "</a>"
+			a_lead 		= "<a target='_blank' href="
+			glink_page 	= "'/glink/" + str(self.glink.id) + "'>"
+			img_lead 	= "<img src="
+			img_url	 	= "'" + str(self.glink.image.url) + "'"
+			height 		= " height='" + str(self.blueprint.height) + "'"
+			width 		= " width='" + str(self.blueprint.width) + "'"
+			img_close 	= "> "
+			a_close 	= "</a>"
 			return a_lead + glink_page + img_lead + img_url + height + width + img_close + a_close
 		else: 
 			return ""
