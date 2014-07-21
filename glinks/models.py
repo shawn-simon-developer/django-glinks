@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-
+from datetime import datetime
 
 # Create your models here.
 class Blueprint(models.Model):
@@ -22,6 +22,8 @@ class Glink(models.Model):
 	# Name (Issue #2 requested.)
 	name = models.CharField(null=False, blank=False, max_length=200)
 
+	isActive = models.BooleanField(null=False, default=True)
+
 	# Glink image
 	image  = models.ImageField(null=False, blank=False, upload_to="glink_images")
 
@@ -30,7 +32,7 @@ class Glink(models.Model):
 
 	weight = models.PositiveIntegerField(max_length=9, default=0)
 
-	start_date = models.DateTimeField(null=True, blank=True)
+	start_date = models.DateTimeField(null=True, blank=True, default=datetime.now())
 	expiry_date  = models.DateTimeField(null=True, blank=True)
 
 	# Click/impression tracking

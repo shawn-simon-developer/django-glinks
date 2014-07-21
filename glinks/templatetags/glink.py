@@ -103,22 +103,14 @@ class GlinkNode(Node):
 		try:
 			# Nifty little switcharoo from string to object.
 			self.blueprint = Blueprint.objects.get(name=self.blueprint)
-			glinks = Glink.objects.filter(blueprint=self.blueprint)
+			glinks = Glink.objects.filter(blueprint=self.blueprint, isActive=True)
 
 			if len(glinks) > 0:
 
 				for glink in glinks:
-					print "Testing"
-					print "------------------------"
-					print glink.start_date
-					print glink.expiry_date
-					print "------------------------"
-
 					if glink.start_date == None:
-						print "Excluding ", glink
 						glinks = glinks.exclude(pk=glink.pk)
 					elif glink.start_date.replace(tzinfo=None) > datetime.now():
-						print "Excluding ", glink
 						glinks = glinks.exclude(pk=glink.pk)
 					else:
 						if glink.expiry_date != None:
