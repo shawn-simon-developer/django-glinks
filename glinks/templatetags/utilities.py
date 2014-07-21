@@ -1,4 +1,5 @@
 from glinks.models import Glink, Blueprint, ImpressionTracking
+from datetime import datetime
 
 import urllib
 

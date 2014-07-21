@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 # Create your models here.
 class Blueprint(models.Model):
 
@@ -28,6 +29,9 @@ class Glink(models.Model):
 	URL    = models.URLField(null=True, blank=True)
 
 	weight = models.PositiveIntegerField(max_length=9, default=0)
+
+	start_date = models.DateTimeField(null=True, blank=True)
+	expiry_date  = models.DateTimeField(null=True, blank=True)
 
 	# Click/impression tracking
 	clicks = models.BigIntegerField(null=False, blank=True, default=0)
@@ -119,5 +123,12 @@ class ClickTracking(models.Model):
 
 	def __unicode__(self):
 		return "User from: " + str(self.country) + ", " + str(self.city)
+
+class SpamBlockList(models.Model):
+
+	ip = models.CharField(null=False, blank=True, max_length=100)
+
+	
+
 
 

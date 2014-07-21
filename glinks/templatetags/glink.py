@@ -106,6 +106,26 @@ class GlinkNode(Node):
 			glinks = Glink.objects.filter(blueprint=self.blueprint)
 
 			if len(glinks) > 0:
+
+				for glink in glinks:
+					print "Testing"
+					print "------------------------"
+					print glink.start_date
+					print glink.expiry_date
+					print "------------------------"
+
+					if glink.start_date == None:
+						print "Excluding ", glink
+						glinks = glinks.exclude(pk=glink.pk)
+					elif glink.start_date.replace(tzinfo=None) > datetime.now():
+						print "Excluding ", glink
+						glinks = glinks.exclude(pk=glink.pk)
+					else:
+						if glink.expiry_date != None:
+							if glink.expiry_date.replace(tzinfo=None) < datetime.now():
+								print "Excluding ", glink
+								glinks = glinks.exclude(pk=glink.pk)
+
 				weight_list = generateWeightedListFromGlinks(glinks)
 
 				weight = weight_list[randint(0, len(weight_list)-1)]
