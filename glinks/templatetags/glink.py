@@ -115,7 +115,6 @@ class GlinkNode(Node):
 					else:
 						if glink.expiry_date != None:
 							if glink.expiry_date.replace(tzinfo=None) < datetime.now():
-								print "Excluding ", glink
 								glinks = glinks.exclude(pk=glink.pk)
 
 				weight_list = generateWeightedListFromGlinks(glinks)
