@@ -16,4 +16,4 @@ def glink_counter(request, glink_id):
 				city=tracking_dict["City"])
 	clickTracking.save()
 
-	return HttpResponseRedirect(glink.URL)
+	return HttpResponse("<meta http-equiv=\'refresh\' content=\'0; url="+glink.URL+"\'/>") if glink.URL else HttpResponse("<meta http-equiv=\'refresh\' content=\'0; url=/\'/>")
