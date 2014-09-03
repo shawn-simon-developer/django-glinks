@@ -26,7 +26,7 @@ class Glink(models.Model):
 	image  = models.ImageField(null=False, blank=False, upload_to="glink_images")
 
 	# Glink target URL
-	URL    = models.URLField(null=True, blank=True)
+	URL    = models.CharField(max_length=200, null=True, blank=True)
 
 	weight = models.PositiveIntegerField(max_length=9, default=0)
 
