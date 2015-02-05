@@ -103,27 +103,18 @@ class GlinkNode(Node):
 		try:
 			# Nifty little switcharoo from string to object.
 			self.blueprint = Blueprint.objects.get(name=self.blueprint)
-			glinks = Glink.objects.filter(blueprint=self.blueprint)
+			glinks = Glink.objects.filter(blueprint=self.blueprint, isActive=True)
 
 			if len(glinks) > 0:
 
 				for glink in glinks:
-					print "Testing"
-					print "------------------------"
-					print glink.start_date
-					print glink.expiry_date
-					print "------------------------"
-
 					if glink.start_date == None:
-						print "Excluding ", glink
 						glinks = glinks.exclude(pk=glink.pk)
 					elif glink.start_date.replace(tzinfo=None) > datetime.now():
-						print "Excluding ", glink
 						glinks = glinks.exclude(pk=glink.pk)
 					else:
 						if glink.expiry_date != None:
 							if glink.expiry_date.replace(tzinfo=None) < datetime.now():
-								print "Excluding ", glink
 								glinks = glinks.exclude(pk=glink.pk)
 
 				weight_list = generateWeightedListFromGlinks(glinks)
@@ -164,14 +155,14 @@ class GlinkNode(Node):
 				city=tracking_dict["City"].strip())
 			impressionTracking.save()
 
-			a_lead = "<a href="
-			glink_page = "'/glink/" + str(self.glink.id) + "'>"
-			img_lead = "<img src="
-			img_url = "'" + str(self.glink.image.url) + "'"
-			height = " height='" + str(self.blueprint.height) + "'"
-			width = " width='" + str(self.blueprint.width) + "'"
-			img_close = "> "
-			a_close = "</a>"
+			a_lead 		= "<a target='_blank' href="
+			glink_page 	= "'/glink/" + str(self.glink.id) + "'>"
+			img_lead 	= "<img src="
+			img_url	 	= "'" + str(self.glink.image.url) + "'"
+			height 		= " height='" + str(self.blueprint.height) + "'"
+			width 		= " width='" + str(self.blueprint.width) + "'"
+			img_close 	= "> "
+			a_close 	= "</a>"
 			return a_lead + glink_page + img_lead + img_url + height + width + img_close + a_close
 		else: 
 			return ""
