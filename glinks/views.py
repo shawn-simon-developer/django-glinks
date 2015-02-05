@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from glinks.models import Glink, Blueprint, ClickTracking
 from glinks.templatetags.utilities import *
 
@@ -9,11 +9,9 @@ def glink_counter(request, glink_id):
 	glink.save()
 
 	ip = getClientIpFromRequest(request)
-	tracking_dict = getLocationFromIp(ip)
+	#tracking_dict = getLocationFromIp(ip)
 
-	clickTracking = ClickTracking(glink_id=glink, ip=ip, latitude=tracking_dict["Latitude"], 
-				longitude=tracking_dict["Longitude"], country=tracking_dict["Country"], 
-				city=tracking_dict["City"])
+	clickTracking = ClickTracking(glink_id=glink, ip=ip)
 	clickTracking.save()
 
 	return HttpResponse("<meta http-equiv=\'refresh\' content=\'0; url="+glink.URL+"\'/>") if glink.URL else HttpResponse("<meta http-equiv=\'refresh\' content=\'0; url=/\'/>")
